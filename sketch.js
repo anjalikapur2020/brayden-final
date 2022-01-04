@@ -21,7 +21,7 @@ function preload(){
 waitimg=loadImage("bg1.jpg")
 gamemusic=loadSound("SofterSound.mp3")
 playimg=loadImage("bg1.png")
-aboutimg=loadImage("bga.jpg")
+//aboutimg=loadImage("bga.jpg")
 aboutpopimg=loadImage("popupzombie.png")
 //endbg=loadImage("zombiewin.gif")
 restartimg=loadImage("restart.png")
@@ -44,6 +44,7 @@ timg5=loadImage("t5.png")
 timg6=loadImage("t6.png")
 zombietouch=loadSound("hit.mp3")
 winImg=loadImage("survived.png")
+treesound=loadSound("treecut.mp3")
 
 lostimg=loadImage("lost.png")
 lost1img=loadImage("lost1.png")
@@ -192,7 +193,7 @@ if(play.mousePressed(()=>{
 gameState="play"
 //player.visible=true
 home.show()
-
+gamemusic.loop()
 
 
 }))
@@ -225,7 +226,7 @@ if(gameState==="play"){
 background(playimg)
 //image(playimg,0,0,4*windowWidth,2*windowHeight)
 
-gamemusic.play()
+
 logo.hide()
 popup1.visible=false
 player.visible=true
@@ -244,13 +245,16 @@ player.setCollider("circle",0,0,(player.width/4))
 spawntrees()
 
 if(keyDown("space")){
-  
+ 
   for(i=0;i<=(treeGroup.length)-1;i++){
 //for(a=0;a<=(axeGroup.length)-1;a++){
    if (player.isTouching(treeGroup.get(i))){
   axe.visible=true;
     if(frameCount%2===0){
-      woodscore=woodscore+2; } 
+      treesound.play()
+      woodscore=woodscore+2; 
+   
+    } 
       
     } axeGroup.destroyEach()
     treeGroup.get(i).remove()
@@ -381,21 +385,23 @@ if(gameState==="about"){
     }*/
 
     drawSprites()
-
+    textSize(30)
+    fill(0)
+    text("Made by Brayden",windowWidth-200,windowHeight-50)
     if(gameState==="about"){
       textSize(35)
       stroke(5)
       strokeWeight(10)
       fill("red")
       text("You got stuck in the land of ZOMBIES.",popup1.x-(popup1.width/2.25),popup1.y-(popup1.height/2))
-      textSize(30)
+      textSize(33)
       strokeWeight(5)
       text("You were lucky to survive so far! But nomore now....\n          A zombie has spotted you.",popup1.x-(popup1.width/2),popup1.y-(popup1.height/2)+50)
       text("\nYou need to save yourself by lighting a fire and then build a house.\nYou need to cut the trees to collect the woods for fire and hut.\nOnce your house is buit you are safe.\nBe mindful with your AXE!!\nNot every blow will get you wood .\n It's unnecessary usuage makes trees disappear.\nUse ARROW KEYS to move in different directions.\nUse SPACE BAR to enable AXE...SAVE YOURSELF...",popup1.x-(popup1.width/1.5),popup1.y-(popup1.height/2)+80)
       textSize(50)
       stroke(5)
       strokeWeight(10)
-      text("...SAVE YOURSELF...",popup1.x-(popup1.width/2.25),popup1.y-(popup1.height/2)+450)
+      text("...SAVE YOURSELF...",popup1.x-(popup1.width/2.25),popup1.y-(popup1.height/2)+500)
  
  
  
